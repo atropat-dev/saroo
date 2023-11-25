@@ -133,6 +133,8 @@ function DataTable() {
       corrective_doctor: user.corrective_doctor,
       services: user.services,
       which_tooth: user.which_tooth,
+      return_doctor: user.return_doctor,
+      return_reason: user.return_reason,
       created_at: user.created_at,
     })
     // Open the edit dialog
@@ -150,6 +152,8 @@ function DataTable() {
       corrective_doctor: "",
       services: "",
       which_tooth: "",
+      return_doctor: "",
+      return_reason: "",
       created_at: "",
     })
   }
@@ -219,6 +223,7 @@ function DataTable() {
               <TableCell>پزشک اصلاح</TableCell>
               <TableCell>خدمات , خدمات اصلاح</TableCell>
               <TableCell>جزییات خدمات</TableCell>
+              <TableCell>پزشک عودت</TableCell> {/* Add this line */}
               <TableCell>دلیل عودت</TableCell> {/* Add this line */}
               <TableCell>تاریخ و ساعت</TableCell>
             </TableRow>
@@ -226,6 +231,7 @@ function DataTable() {
           <TableBody>
             {Object.keys(groupedData).map((fileNumber) => {
               const user = groupedData[fileNumber][0]
+
               if (!user.file_number) {
                 return null // Skip rendering rows without file_number
               }
@@ -246,8 +252,9 @@ function DataTable() {
                   <TableCell>{user.corrective_doctor}</TableCell>
                   <TableCell>{user.services}</TableCell>
                   <TableCell>{user.which_tooth}</TableCell>
-                  <TableCell>{moment(user.created_at).format("jYYYY-jMM-jDD")}</TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>{user.return_doctor}</TableCell> {/* Add this line */}
+                  <TableCell>{user.return_reason}</TableCell> {/* Add this line */}
+                  <TableCell>{moment(user.created_at).format("jYYYY-jMM-jDD HH:mm:ss")}</TableCell>
                 </TableRow>
               )
             })}
@@ -270,6 +277,8 @@ function DataTable() {
                   <TableCell>پزشک اصلاح</TableCell>
                   <TableCell>خدمات</TableCell>
                   <TableCell>جزییات خدمات</TableCell>
+                  <TableCell>پزشک عودت</TableCell> {/* Add this line */}
+                  <TableCell>دلیل عودت</TableCell> {/* Add this line */}
                   <TableCell>تاریخ و ساعت</TableCell>
                 </TableRow>
               </TableHead>
@@ -301,7 +310,9 @@ function DataTable() {
                     <TableCell>{user.corrective_doctor}</TableCell>
                     <TableCell>{user.services}</TableCell>
                     <TableCell>{user.which_tooth}</TableCell>
-                    <TableCell>{moment(user.created_at).format("jYYYY-jMM-jDD")}</TableCell>
+                    <TableCell>{user.return_doctor}</TableCell> {/* Add this line */}
+                    <TableCell>{user.return_reason}</TableCell> {/* Add this line */}
+                    <TableCell>{moment(user.created_at).format("jYYYY-jMM-jDD HH:mm:ss")}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -331,6 +342,13 @@ function DataTable() {
           <TextField label="شماره پرونده" name="file_number" value={editFormData.file_number} onChange={handleEditFormChange} fullWidth margin="normal" />
           <TextField label="نام و نام خانوادگی" name="name" value={editFormData.name} onChange={handleEditFormChange} fullWidth margin="normal" />
           <TextField label="نام پدر" name="father_name" value={editFormData.father_name} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="پزشک" name="doctor" value={editFormData.doctor} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="پزشک اصلاح" name="corrective_doctor" value={editFormData.corrective_doctor} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="سرویس" name="services" value={editFormData.services} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="کدام دندان" name="which_tooth" value={editFormData.which_tooth} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="دلیل عودت" name="return_reason" value={editFormData.return_reason} onChange={handleEditFormChange} fullWidth margin="normal" />
+          <TextField label="پزشک عودت" name="return_doctor" value={editFormData.return_doctor} onChange={handleEditFormChange} fullWidth margin="normal" />
+
           {/* Add similar TextField components for other attributes */}
         </DialogContent>
         <DialogActions>

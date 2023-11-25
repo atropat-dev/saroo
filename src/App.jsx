@@ -19,6 +19,20 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 })
 
 function App() {
+  const [mainPassword, setMainPassword] = useState("")
+  const correctMainPassword = "your_main_password" // Replace with your actual main password
+
+  const handleMainPasswordSubmit = () => {
+    if (mainPassword === correctMainPassword) {
+      setAuthenticated(true)
+      // Store authentication status in localStorage
+      localStorage.setItem("isAuthenticated", "true")
+    } else {
+      alert("Incorrect main password. Please try again.")
+      setMainPassword("")
+    }
+  }
+
   const [fileNumber, setFileNumber] = useState("")
   const [fullName, setFullName] = useState("")
   const [fatherName, setFatherName] = useState("")
@@ -33,6 +47,36 @@ function App() {
   const [returnDoctor, setReturnDoctor] = useState("")
   const [returnReason, setReturnReason] = useState("")
   const [returnReasonsList, setReturnReasonsList] = useState([])
+
+  const [isAuthenticated, setAuthenticated] = useState(false)
+  const [password, setPassword] = useState("")
+  const correctPassword = "241190" // Replace with your actual password
+
+  useEffect(() => {
+    // Check if the user was authenticated before
+    const storedAuthStatus = localStorage.getItem("isAuthenticated")
+    if (storedAuthStatus === "true") {
+      setAuthenticated(true)
+    }
+  }, [])
+
+  const handlePasswordSubmit = () => {
+    if (password === correctPassword) {
+      setAuthenticated(true)
+      // Store authentication status in localStorage
+      localStorage.setItem("isAuthenticated", "true")
+    } else {
+      alert("Incorrect password. Please try again.")
+      setPassword("")
+    }
+  }
+
+  const handleLogout = () => {
+    setAuthenticated(false)
+    // Clear authentication status from localStorage
+    localStorage.removeItem("isAuthenticated")
+    setPassword("")
+  }
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") {
@@ -271,7 +315,19 @@ function App() {
           </div>
         </Container>
       </ThemeProvider>
-      <DisplayDataComponent />
+      {isAuthenticated ? (
+        <div>
+          <DisplayDataComponent />
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      ) : (
+        <div>
+          <p>This section is password protected.</p>
+          <label>Password:</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <button onClick={handlePasswordSubmit}>Submit</button>
+        </div>
+      )}
     </div>
   )
 }
