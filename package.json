@@ -1,0 +1,52 @@
+{
+  "name": "my-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mantine/core": "^7.2.2",
+    "@mantine/hooks": "^7.2.2",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
+    "@mui/system": "^5.14.18",
+    "@mui/x-date-pickers": "^6.18.1",
+    "@supabase/realtime-js": "^2.8.4",
+    "@supabase/supabase-js": "^2.38.4",
+    "date-fns": "^2.30.0",
+    "date-fns-jalali": "^2.13.0-0",
+    "file-saver": "^2.0.5",
+    "jalali-moment": "^3.3.11",
+    "jalali-react-datepicker": "^1.2.3",
+    "jss-rtl": "^0.3.0",
+    "mantine-datepicker-jalali": "^1.2.3",
+    "material-ui-persian-date-picker-utils": "^0.1.2",
+    "moment-jalaali": "^0.10.0",
+    "moment-jalali": "^0.3.9",
+    "react": "^18.2.0",
+    "react-datepicker": "^4.21.0",
+    "react-dom": "^18.2.0",
+    "react-multi-date-picker": "^4.4.1",
+    "react-router-dom": "^6.19.0",
+    "stylis": "^4.3.0",
+    "stylis-plugin-rtl": "^2.1.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react": "^4.2.0",
+    "eslint": "^8.53.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
+    "vite": "^5.0.0"
+  }
+}
