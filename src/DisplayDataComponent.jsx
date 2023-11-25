@@ -4,6 +4,8 @@ import moment from "jalali-moment"
 import DeleteIcon from "@mui/icons-material/Delete" // Import the delete icon
 import DatePicker from "react-multi-date-picker"
 import EditIcon from "@mui/icons-material/Edit" // Import the edit icon
+import "./style.css"
+import PrintDialog from "./PrintDialog"
 
 import persian from "react-date-object/calendars/persian"
 import supabase from "./supabase"
@@ -206,6 +208,19 @@ function DataTable() {
     }
   }
 
+  // New state for managing the print dialog visibility
+  const [printDialogOpen, setPrintDialogOpen] = useState(false)
+
+  // Function to open the print dialog
+  const handlePrintDialogOpen = () => {
+    setPrintDialogOpen(true)
+  }
+
+  // Function to close the print dialog
+  const handlePrintDialogClose = () => {
+    setPrintDialogOpen(false)
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <div>
@@ -262,7 +277,7 @@ function DataTable() {
         </Table>
       </TableContainer>
 
-      <Dialog open={historyPopupOpen} onClose={closeHistoryPopup} fullWidth maxWidth="md">
+      <Dialog open={historyPopupOpen} onClose={closeHistoryPopup} fullWidth maxWidth="">
         <DialogTitle>{`تاریخچه شماره پرونده ${selectedFileNumber}`}</DialogTitle>
         <DialogContent>
           <TableContainer component={Paper}>
@@ -280,6 +295,9 @@ function DataTable() {
                   <TableCell>پزشک عودت</TableCell> {/* Add this line */}
                   <TableCell>دلیل عودت</TableCell> {/* Add this line */}
                   <TableCell>تاریخ و ساعت</TableCell>
+                  <Button onClick={handlePrintDialogOpen} color="primary">
+                    چاپ
+                  </Button>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -312,7 +330,6 @@ function DataTable() {
                     <TableCell>{user.which_tooth}</TableCell>
                     <TableCell>{user.return_doctor}</TableCell> {/* Add this line */}
                     <TableCell>{user.return_reason}</TableCell> {/* Add this line */}
-                    <TableCell>{moment(user.created_at).format("jYYYY-jMM-jDD HH:mm:ss")}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -360,6 +377,17 @@ function DataTable() {
           </Button>
         </DialogActions>
       </Dialog>
+      <PrintDialog
+        sx={{ display: "none" }}
+        historyPopupOpen={historyPopupOpen}
+        closeHistoryPopup={closeHistoryPopup}
+        fileHistory={fileHistory}
+        selectedFileNumber={selectedFileNumber}
+        openDeleteConfirmationDialog={openDeleteConfirmationDialog}
+        openEditDialog={openEditDialog}
+        printDialogOpen={printDialogOpen} // Pass the print dialog state and close function
+        closePrintDialog={handlePrintDialogClose}
+      />
     </ThemeProvider>
   )
 }
